@@ -51,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void loginSuccess(String token) {
-    AuthService().saveToken(token);
+  Future<void> loginSuccess(TokenModel token) async {
+    await AuthService().saveToken(token.token);
     redirectHome();
   }
 

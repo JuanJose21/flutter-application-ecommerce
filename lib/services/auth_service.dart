@@ -6,9 +6,9 @@ class AuthService {
     await prefs.setString('userToken', token);
   }
 
-  Future<String> getUserToken() async {
+  Future<String?> getUserToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('userToken') ?? '';
+    return prefs.getString('userToken');
   }
 
   Future<void> logoutUser() async {

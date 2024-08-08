@@ -106,10 +106,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_package_api_fake_store
-      sha256: "47f33ece4a5be1bf54257531e673c4a68c387f076a472a95aaae6ce3953adf3b"
+      sha256: "1a65ae4e02a6da8b8e2fede912b5db8bc141f39bae860bedfe9fa4f81c494e2a"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.5"
+    version: "0.0.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
