@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_ecommerce/presentation/widgets/shared/custom_app_bar.dart';
+import 'package:flutter_application_ecommerce/presentation/widgets/shared/index.dart';
 import 'package:flutter_application_ecommerce/services/carts_service.dart';
 import 'package:flutter_design_system_store/flutter_design_system_store.dart';
 import 'package:flutter_package_api_fake_store/flutter_package_api_fake_store.dart';
@@ -68,6 +68,7 @@ class _ProductScreen extends State<ProductScreen> {
         appBar: CustomAppBar(
           title: _product?.title ?? '',
         ),
+        drawer: const CustomDrawer(),
         body: _isLoading
             ? const Center(
                 child: CircularProgressIndicator(),

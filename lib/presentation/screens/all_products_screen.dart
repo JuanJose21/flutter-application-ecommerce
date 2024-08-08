@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_ecommerce/presentation/screens/product_screen.dart';
-import 'package:flutter_application_ecommerce/presentation/widgets/shared/custom_app_bar.dart';
+import 'package:flutter_application_ecommerce/presentation/widgets/shared/index.dart';
 import 'package:flutter_application_ecommerce/services/carts_service.dart';
 import 'package:flutter_application_ecommerce/utils/navigation.dart';
 import 'package:flutter_design_system_store/flutter_design_system_store.dart';
@@ -63,8 +63,9 @@ class _AllProductsScreen extends State<AllProductsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(
-        title: 'Todos los Productos',
+        title: 'Todos los productos',
       ),
+      drawer: const CustomDrawer(),
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(),

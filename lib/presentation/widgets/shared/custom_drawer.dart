@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_ecommerce/presentation/screens/all_products_screen.dart';
-import 'package:flutter_application_ecommerce/presentation/screens/home_screen.dart';
+import 'package:flutter_application_ecommerce/presentation/screens/index.dart';
+import 'package:flutter_application_ecommerce/services/auth_service.dart';
 import 'package:flutter_application_ecommerce/utils/navigation.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -51,8 +51,7 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             title: const Text('Iniciar sesión'),
             onTap: () {
-              // Update the state of the app.
-              // ...
+              redirectProductScreen(const LoginScreen());
             },
           ),
           ListTile(
@@ -60,6 +59,13 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               // Update the state of the app.
               // ...
+            },
+          ),
+          ListTile(
+            title: const Text('Cerrar sesión'),
+            onTap: () {
+              AuthService().logoutUser();
+              redirectProductScreen(const HomeScreen());
             },
           ),
           ListTile(
