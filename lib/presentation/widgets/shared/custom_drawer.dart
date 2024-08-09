@@ -100,6 +100,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
               },
             ),
           ],
+          ListTile(
+            title: const Text('Contacto y soporte'),
+            onTap: () {
+              redirectProductScreen(const SupportContactScreen());
+            },
+          ),
         ],
       ),
     );
