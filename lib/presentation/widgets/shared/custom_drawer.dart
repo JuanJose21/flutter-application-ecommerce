@@ -89,8 +89,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ListTile(
               title: const Text('Carrito de compras'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                redirectProductScreen(const CartScreen());
               },
             ),
             ListTile(
