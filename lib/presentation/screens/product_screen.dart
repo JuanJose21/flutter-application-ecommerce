@@ -65,7 +65,6 @@ class _ProductScreen extends State<ProductScreen> {
         appBar: CustomAppBar(
           title: _product?.title ?? '',
         ),
-        drawer: const CustomDrawer(),
         body: _isLoading
             ? const Center(
                 child: CircularProgressIndicator(),
@@ -135,8 +134,8 @@ class _ProductScreen extends State<ProductScreen> {
                               const SizedBox(height: 16.0),
                               CustomButton(
                                 label: 'Agregar al carrito',
-                                onPressed: () {
-                                  CartService.addToCart();
+                                onPressed: () async {
+                                  await CartService.addProductToCart(_product!);
                                 },
                               ),
                             ],

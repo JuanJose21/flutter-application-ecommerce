@@ -25,6 +25,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _fetchProductsItems();
+    _loadCartItems(); // Cargar los productos del carrito al iniciar la pantalla
+  }
+
+  void _loadCartItems() async {
+    await CartService.loadCartItems();
   }
 
   void _fetchProductsItems() async {
@@ -103,8 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   imageUrl: _productsItems[i].image,
                                   title: _productsItems[i].title,
                                   price: _productsItems[i].price.toString(),
-                                  onAddToCart: () {
-                                    CartService.addToCart();
+                                  onAddToCart: () async {
+                                    await CartService.addProductToCart(
+                                        _productsItems[i]);
                                   },
                                 ),
                               ),

@@ -65,8 +65,6 @@ class _CategoryProductsScreen extends State<CategoryProductsScreen> {
       _errorMessage = null;
     });
 
-    print(categoryValues.reverse[categorySelected]);
-
     final result = await flutterPackageApiFakeStore
         .getCategoryProducts(categorySelected ?? CategoryEnum.electronics);
 
@@ -143,8 +141,9 @@ class _CategoryProductsScreen extends State<CategoryProductsScreen> {
                                             imageUrl: product.image,
                                             title: product.title,
                                             price: product.price.toString(),
-                                            onAddToCart: () {
-                                              CartService.addToCart();
+                                            onAddToCart: () async {
+                                              await CartService
+                                                  .addProductToCart(product);
                                             },
                                           ),
                                         );

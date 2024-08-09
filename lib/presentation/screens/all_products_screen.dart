@@ -122,8 +122,9 @@ class _AllProductsScreen extends State<AllProductsScreen> {
                                 title: _filteredProductsItems[i].title,
                                 price:
                                     _filteredProductsItems[i].price.toString(),
-                                onAddToCart: () {
-                                  CartService.addToCart();
+                                onAddToCart: () async {
+                                  await CartService.addProductToCart(
+                                      _filteredProductsItems[i]);
                                 },
                               ),
                             ),

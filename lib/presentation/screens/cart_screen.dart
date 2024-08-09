@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_ecommerce/models/cart_item_model.dart';
+import 'package:flutter_application_ecommerce/presentation/screens/index.dart';
+import 'package:flutter_application_ecommerce/services/carts_service.dart';
+import 'package:flutter_application_ecommerce/utils/navigation.dart';
+import 'package:flutter_design_system_store/flutter_design_system_store.dart';
 import 'package:flutter_package_api_fake_store/flutter_package_api_fake_store.dart';
 
 class CartScreen extends StatefulWidget {
@@ -9,81 +14,95 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final FlutterPackageApiFakeStore flutterPackageApiFakeStore =
-      FlutterPackageApiFakeStore();
-  List<CartModel> _cartItems = [];
-  String? _errorMessage;
-  bool _isLoading = false;
+  List<CartItemModel> _cartItems = [];
 
   @override
   void initState() {
     super.initState();
-    _fetchCartItems();
+    _loadCartItems();
   }
 
-  void _fetchCartItems() async {
+  void _loadCartItems() {
     setState(() {
-      _isLoading = true;
-      _errorMessage = null;
+      _cartItems = CartService.getCartItems();
     });
+  }
 
-    final result = await flutterPackageApiFakeStore.getCartByUser('1');
+  void _addItemToCart(ProductModel product) async {
+    await CartService.addProductToCart(product);
+    _loadCartItems();
+  }
 
-    result.fold(
-      (error) {
-        setState(() {
-          _errorMessage = error;
-        });
-      },
-      (cartItems) {
-        setState(() {
-          _cartItems = cartItems;
-        });
-      },
+  void _removeItemFromCart(ProductModel product) async {
+    await CartService.removeProductFromCart(product);
+    _loadCartItems();
+  }
+
+  void _checkout() async {
+    if (_cartItems.isEmpty) {
+      showSnackBar('No hay productos en el carrito.');
+      return;
+    }
+
+    await CartService.clearCart();
+    setState(() {
+      _cartItems = [];
+      redirectHomeScreen();
+      showSnackBar('Compra realizada con éxito.');
+    });
+  }
+
+  void showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
     );
+  }
 
-    setState(() {
-      _isLoading = false;
-    });
+  void redirectHomeScreen() {
+    Navigation.navigateTo(context, const HomeScreen());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Carrito'),
+        title: const Text('Carrito de Compras'),
       ),
-      body: _isLoading
+      body: _cartItems.isEmpty
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: Text('No hay productos en el carrito.'),
             )
-          : _errorMessage != null
-              ? Center(
-                  child: Text(
-                    _errorMessage!,
-                    style: const TextStyle(color: Colors.red),
+          : ListView.builder(
+              itemCount: _cartItems.length,
+              itemBuilder: (context, index) {
+                final item = _cartItems[index];
+                return ListTile(
+                  leading: Image.network(item.product.image),
+                  title: Text(item.product.title),
+                  subtitle: Text('Cantidad: ${item.quantity}'),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.remove_circle_outline),
+                        onPressed: () => _removeItemFromCart(item.product),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.add_circle_outline),
+                        onPressed: () => _addItemToCart(item.product),
+                      ),
+                    ],
                   ),
-                )
-              : _cartItems.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: _cartItems.length,
-                      itemBuilder: (context, index) {
-                        final cartItem = _cartItems[index];
-                        return ExpansionTile(
-                          title: Text('Carrito ID: ${cartItem.id}'),
-                          subtitle: Text('Usuario ID: ${cartItem.userId}'),
-                          children: cartItem.products.map((product) {
-                            return ListTile(
-                              title: Text('Producto ID: ${product.quantity}'),
-                              subtitle: Text('Cantidad: ${product.quantity}'),
-                            );
-                          }).toList(),
-                        );
-                      },
-                    )
-                  : const Center(
-                      child: Text('No hay productos en el carrito.'),
-                    ),
+                );
+              },
+            ),
+      bottomNavigationBar: BottomAppBar(
+        child: CustomButton(
+            label: 'Realizar pedido',
+            onPressed: () {
+              _checkout();
+            }),
+      ),
     );
   }
 }
