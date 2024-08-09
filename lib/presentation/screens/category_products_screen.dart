@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_ecommerce/presentation/screens/index.dart';
 import 'package:flutter_application_ecommerce/presentation/widgets/shared/index.dart';
 import 'package:flutter_application_ecommerce/services/index.dart';
+import 'package:flutter_application_ecommerce/utils/navigation.dart';
 import 'package:flutter_design_system_store/flutter_design_system_store.dart';
 import 'package:flutter_package_api_fake_store/flutter_package_api_fake_store.dart';
 
@@ -88,10 +89,7 @@ class _CategoryProductsScreen extends State<CategoryProductsScreen> {
   }
 
   void redirectProductScreen(int productId) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ProductScreen(productId: productId)));
+    Navigation.navigateTo(context, ProductScreen(productId: productId));
   }
 
   @override
