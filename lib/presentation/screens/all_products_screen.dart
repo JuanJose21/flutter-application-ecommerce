@@ -78,22 +78,28 @@ class _AllProductsScreen extends State<AllProductsScreen> {
                   ),
                 )
               : _productsItems.isNotEmpty
-                  ? ListView.builder(
+                  ? GridView.builder(
+                      padding: const EdgeInsets.all(10.0),
                       itemCount: _productsItems.length,
-                      itemBuilder: (context, index) {
-                        final product = _productsItems[index];
-                        return GestureDetector(
-                          onTap: () => redirectProductScreen(product.id!),
-                          child: ProductCard(
-                            imageUrl: product.image,
-                            title: product.title,
-                            price: product.price.toString(),
-                            onAddToCart: () {
-                              CartService.addToCart();
-                            },
-                          ),
-                        );
-                      },
+                      itemBuilder: (ctx, i) => GestureDetector(
+                        onTap: () =>
+                            redirectProductScreen(_productsItems[i].id!),
+                        child: ProductCard(
+                          imageUrl: _productsItems[i].image,
+                          title: _productsItems[i].title,
+                          price: _productsItems[i].price.toString(),
+                          onAddToCart: () {
+                            CartService.addToCart();
+                          },
+                        ),
+                      ),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.58,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
                     )
                   : const Center(
                       child: Text('No hay productos en el carrito.'),

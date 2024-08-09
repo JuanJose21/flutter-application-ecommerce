@@ -63,8 +63,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ListTile(
             title: const Text('Productos por categoría'),
             onTap: () {
-              // Update the state of the app.
-              // ...
+              redirectProductScreen(const CategoryProductsScreen());
             },
           ),
           if (!_isLoggedIn) ...[

@@ -90,10 +90,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_design_system_store
-      sha256: "165bb361ca20e56abb7b4fedae3d81f4425968d8c881f084c01bf19ef591fe96"
+      sha256: "95a911e765db38e7dc1a6916413544656176fa233eee3ddc98b7bf475528964c"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.5"
+    version: "0.0.6"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -106,10 +106,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_package_api_fake_store
-      sha256: "1a65ae4e02a6da8b8e2fede912b5db8bc141f39bae860bedfe9fa4f81c494e2a"
+      sha256: "300f742d8be1335414cd507480fbcc77b05c7aec9c5decac312fb2fed615e895"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.6"
+    version: "0.0.8"
   flutter_test:
     dependency: "direct dev"
     description: flutter
