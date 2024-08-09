@@ -76,8 +76,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ListTile(
               title: const Text('Registrarse'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                redirectProductScreen(const AddUserScreen());
               },
             ),
           ] else ...[
