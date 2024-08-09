@@ -83,8 +83,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ListTile(
               title: const Text('Perfil'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                redirectProductScreen(const UserScreen());
               },
             ),
             ListTile(
