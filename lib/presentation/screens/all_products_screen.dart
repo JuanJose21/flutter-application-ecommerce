@@ -17,6 +17,7 @@ class _AllProductsScreen extends State<AllProductsScreen> {
   final FlutterPackageApiFakeStore flutterPackageApiFakeStore =
       FlutterPackageApiFakeStore();
   List<ProductModel> _productsItems = [];
+  List<ProductModel> _filteredProductsItems = [];
   String? _errorMessage;
   bool _isLoading = false;
 
@@ -43,12 +44,26 @@ class _AllProductsScreen extends State<AllProductsScreen> {
       (productsItems) {
         setState(() {
           _productsItems = productsItems;
+          _filteredProductsItems = productsItems;
         });
       },
     );
 
     setState(() {
       _isLoading = false;
+    });
+  }
+
+  void _filterProducts(String query) {
+    setState(() {
+      _filteredProductsItems = _productsItems.where((product) {
+        final titleLower = product.title.toLowerCase();
+        final descriptionLower = product.description.toLowerCase();
+        final searchLower = query.toLowerCase();
+
+        return titleLower.contains(searchLower) ||
+            descriptionLower.contains(searchLower);
+      }).toList();
     });
   }
 
@@ -77,32 +92,55 @@ class _AllProductsScreen extends State<AllProductsScreen> {
                     style: const TextStyle(color: Colors.red),
                   ),
                 )
-              : _productsItems.isNotEmpty
-                  ? GridView.builder(
-                      padding: const EdgeInsets.all(10.0),
-                      itemCount: _productsItems.length,
-                      itemBuilder: (ctx, i) => GestureDetector(
-                        onTap: () =>
-                            redirectProductScreen(_productsItems[i].id!),
-                        child: ProductCard(
-                          imageUrl: _productsItems[i].image,
-                          title: _productsItems[i].title,
-                          price: _productsItems[i].price.toString(),
-                          onAddToCart: () {
-                            CartService.addToCart();
-                          },
+              : _filteredProductsItems.isNotEmpty
+                  ? Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: TextField(
+                            decoration: const InputDecoration(
+                              hintText: 'Buscar productos...',
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(),
+                            ),
+                            onChanged: (query) {
+                              setState(() {
+                                _filterProducts(query);
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.58,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                      ),
+                        Expanded(
+                          child: GridView.builder(
+                            padding: const EdgeInsets.all(10.0),
+                            itemCount: _filteredProductsItems.length,
+                            itemBuilder: (ctx, i) => GestureDetector(
+                              onTap: () => redirectProductScreen(
+                                  _filteredProductsItems[i].id!),
+                              child: ProductCard(
+                                imageUrl: _filteredProductsItems[i].image,
+                                title: _filteredProductsItems[i].title,
+                                price:
+                                    _filteredProductsItems[i].price.toString(),
+                                onAddToCart: () {
+                                  CartService.addToCart();
+                                },
+                              ),
+                            ),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.58,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                            ),
+                          ),
+                        ),
+                      ],
                     )
                   : const Center(
-                      child: Text('No hay productos en el carrito.'),
+                      child: Text(
+                          'No hay productos que coincidan con la búsqueda.'),
                     ),
     );
   }
