@@ -138,14 +138,25 @@ class _CategoryProductsScreen extends State<CategoryProductsScreen> {
                                           onTap: () => redirectProductScreen(
                                               product.id!),
                                           child: ProductCard(
-                                            imageUrl: product.image,
-                                            title: product.title,
-                                            price: product.price.toString(),
-                                            onAddToCart: () async {
-                                              await CartService
-                                                  .addProductToCart(product);
-                                            },
-                                          ),
+                                              labelButton: 'Agregar',
+                                              imageUrl: product.image,
+                                              title: product.title,
+                                              price: product.price.toString(),
+                                              onAddToCart: () async {
+                                                await CartService
+                                                    .addProductToCart(product);
+                                                setState(() {});
+                                              },
+                                              onRemoveToCart: () async {
+                                                await CartService
+                                                    .removeProductFromCart(
+                                                        product);
+                                                setState(() {});
+                                              },
+                                              quantity: CartService
+                                                  .getQuantityProduct(
+                                                product,
+                                              )),
                                         );
                                       },
                                     ),

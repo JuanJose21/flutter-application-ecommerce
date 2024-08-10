@@ -118,6 +118,7 @@ class _AllProductsScreen extends State<AllProductsScreen> {
                               onTap: () => redirectProductScreen(
                                   _filteredProductsItems[i].id!),
                               child: ProductCard(
+                                labelButton: 'Agregar',
                                 imageUrl: _filteredProductsItems[i].image,
                                 title: _filteredProductsItems[i].title,
                                 price:
@@ -125,7 +126,16 @@ class _AllProductsScreen extends State<AllProductsScreen> {
                                 onAddToCart: () async {
                                   await CartService.addProductToCart(
                                       _filteredProductsItems[i]);
+                                  setState(() {});
                                 },
+                                onRemoveToCart: () async {
+                                  await CartService.removeProductFromCart(
+                                      _filteredProductsItems[i]);
+                                  setState(() {});
+                                },
+                                quantity: CartService.getQuantityProduct(
+                                  _filteredProductsItems[i],
+                                ),
                               ),
                             ),
                             gridDelegate:

@@ -6,6 +6,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CartService {
   static final List<CartItemModel> _cartItems = [];
 
+  static getQuantityProduct(ProductModel product) {
+    final existingItem = _cartItems.firstWhere(
+      (item) => item.product.id == product.id,
+      orElse: () => CartItemModel(product: product, quantity: 0),
+    );
+    return existingItem.quantity;
+  }
+
   static Future<void> loadCartItems() async {
     final prefs = await SharedPreferences.getInstance();
     final cartData = prefs.getString('cartItems');

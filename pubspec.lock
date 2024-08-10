@@ -90,10 +90,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_design_system_store
-      sha256: "95a911e765db38e7dc1a6916413544656176fa233eee3ddc98b7bf475528964c"
+      sha256: "2ae2fb39a775dfb3c4a1a14a91339b40062cb29543ad70002026fe572543e192"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.6"
+    version: "0.0.7"
   flutter_lints:
     dependency: "direct dev"
     description:

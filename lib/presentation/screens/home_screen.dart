@@ -25,11 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _fetchProductsItems();
-    _loadCartItems(); // Cargar los productos del carrito al iniciar la pantalla
-  }
-
-  void _loadCartItems() async {
-    await CartService.loadCartItems();
   }
 
   void _fetchProductsItems() async {
@@ -105,14 +100,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onTap: () => redirectProductScreen(
                                     _productsItems[i].id!),
                                 child: ProductCard(
-                                  imageUrl: _productsItems[i].image,
-                                  title: _productsItems[i].title,
-                                  price: _productsItems[i].price.toString(),
-                                  onAddToCart: () async {
-                                    await CartService.addProductToCart(
-                                        _productsItems[i]);
-                                  },
-                                ),
+                                    labelButton: 'Agregar',
+                                    imageUrl: _productsItems[i].image,
+                                    title: _productsItems[i].title,
+                                    price: _productsItems[i].price.toString(),
+                                    onAddToCart: () async {
+                                      await CartService.addProductToCart(
+                                          _productsItems[i]);
+                                      setState(() {});
+                                    },
+                                    onRemoveToCart: () async {
+                                      await CartService.removeProductFromCart(
+                                          _productsItems[i]);
+                                      setState(() {});
+                                    },
+                                    quantity: CartService.getQuantityProduct(
+                                      _productsItems[i],
+                                    )),
                               ),
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(

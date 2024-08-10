@@ -64,45 +64,49 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Carrito de Compras'),
-      ),
-      body: _cartItems.isEmpty
-          ? const Center(
-              child: Text('No hay productos en el carrito.'),
-            )
-          : ListView.builder(
-              itemCount: _cartItems.length,
-              itemBuilder: (context, index) {
-                final item = _cartItems[index];
-                return ListTile(
-                  leading: Image.network(item.product.image),
-                  title: Text(item.product.title),
-                  subtitle: Text('Cantidad: ${item.quantity}'),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.remove_circle_outline),
-                        onPressed: () => _removeItemFromCart(item.product),
+    return PopScope(
+        onPopInvoked: (bool isPopInvoked) {
+          setState(() {});
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Carrito de Compras'),
+          ),
+          body: _cartItems.isEmpty
+              ? const Center(
+                  child: Text('No hay productos en el carrito.'),
+                )
+              : ListView.builder(
+                  itemCount: _cartItems.length,
+                  itemBuilder: (context, index) {
+                    final item = _cartItems[index];
+                    return ListTile(
+                      leading: Image.network(item.product.image),
+                      title: Text(item.product.title),
+                      subtitle: Text('Cantidad: ${item.quantity}'),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.remove_circle_outline),
+                            onPressed: () => _removeItemFromCart(item.product),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.add_circle_outline),
+                            onPressed: () => _addItemToCart(item.product),
+                          ),
+                        ],
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.add_circle_outline),
-                        onPressed: () => _addItemToCart(item.product),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-      bottomNavigationBar: BottomAppBar(
-        child: CustomButton(
-            label: 'Realizar pedido',
-            onPressed: () {
-              _checkout();
-            }),
-      ),
-    );
+                    );
+                  },
+                ),
+          bottomNavigationBar: BottomAppBar(
+            child: CustomButton(
+                label: 'Realizar pedido',
+                onPressed: () {
+                  _checkout();
+                }),
+          ),
+        ));
   }
 }
