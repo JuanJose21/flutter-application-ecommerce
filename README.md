@@ -2,6 +2,9 @@
 
 Esta aplicación es un eCommerce que permite a los usuarios navegar por diferentes categorías de productos, agregar artículos a su carrito de compras, auntenticarse y registrarse.
 
+## Diagrama de flujo
+![Diagrama ecommerce](https://github.com/user-attachments/assets/be204fe4-cbf4-4fae-8342-1c48d7ddd262)
+
 ## Características
 
 - **Explorar Productos**: Navega por una amplia gama de productos organizados por categorías.
