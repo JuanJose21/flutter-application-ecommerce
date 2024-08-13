@@ -1,16 +1,56 @@
-# flutter_application_ecommerce
+# Flutter Application Ecommerce
 
-A new Flutter project.
+Esta aplicación es un eCommerce que permite a los usuarios navegar por diferentes categorías de productos, agregar artículos a su carrito de compras, auntenticarse y registrarse.
 
-## Getting Started
+## Características
 
-This project is a starting point for a Flutter application.
+- **Explorar Productos**: Navega por una amplia gama de productos organizados por categorías.
+- **Agregar al Carrito**: Los usuarios pueden agregar productos a su carrito y gestionar las cantidades.
+- **Gestión de Carrito**: Actualiza, elimina o ajusta la cantidad de productos en el carrito.
+- **Autenticación de Usuarios**: Los usuarios pueden registrarse e iniciar sesión.
 
-A few resources to get you started if this is your first Flutter project:
+## Requisitos Previos
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Flutter**: Versión `3.22.2` o superior.
+- **Dart**: Versión `3.4.3` o superior.
+
+## Instalación
+
+1. **Clona el repositorio:**
+
+   ```bash
+   git clone https://github.com/JuanJose21/flutter-application-ecommerce
+   cd flutter-application-ecommerce
+   ```
+
+2. **Instala las dependencias:**
+
+   ```bash
+   flutter pub get
+   ```
+
+3. **Ejecuta la aplicación:**
+
+   Para iniciar la aplicación en un dispositivo o emulador:
+
+   ```bash
+   flutter run
+   ```
+
+## Uso
+
+### Navegación en la Aplicación
+
+La aplicación cuenta con un menú de navegación en la parte superior izquierda que permite a los usuarios acceder a las diferentes secciones de la tienda: **Inicio**, **Todos los productos**, **Productos por categoría**, **Carrito** entre otras pantallas.
+
+### Gestión de Productos
+
+- **Explorar Categorías**: En la sección de productos por categoría, los usuarios pueden filtrar productos la categoría seleccionada.
+- **Agregar al Carrito**: ALos usuarios pueden agregarlo al carrito usando el botón "Agregar". Si el producto ya está en el carrito, se mostrará un contador que permite aumentar o disminuir la cantidad.
+- **Ver Carrito**: En el carrito, los usuarios pueden ver todos los productos agregados, actualizar las cantidades o eliminar productos.
+
+## Licencia
+
+Esta aplicación está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
